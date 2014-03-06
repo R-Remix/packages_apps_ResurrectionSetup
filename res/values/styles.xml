@@ -48,13 +48,8 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/title_top_margin</item>
         <item name="android:layout_marginBottom">8dp</item>
-<<<<<<< HEAD
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">italic|bold</item>
-=======
-        <item name="android:textSize">30sp</item>
-        <item name="android:textStyle">bold</item>
->>>>>>> 1a38481... refresh ui to Holo, removing actionbar
         <item name="android:textColor">@color/holo_blue_light</item>
     </style>
 
