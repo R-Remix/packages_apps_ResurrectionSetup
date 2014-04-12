@@ -247,6 +247,11 @@ public class SetupWizardActivity extends Activity implements SetupDataCallbacks 
     }
 
     @Override
+    public Page getPage(int key) {
+        return mSetupData.findPage(key);
+    }
+
+    @Override
     public void onPageFinished(final Page page) {
         mHandler.post(new Runnable() {
             @Override
@@ -264,7 +269,7 @@ public class SetupWizardActivity extends Activity implements SetupDataCallbacks 
                             break;
                         case R.string.setup_google_account:
                             if (accountExists(CMAccount.ACCOUNT_TYPE_GOOGLE)) {
-                                Page locationPage = getPage(getString(R.string.setup_location));
+                                Page locationPage = getPage(R.string.setup_location);
                                 removeSetupPage(locationPage, false);
                             }
                             break;
@@ -371,6 +376,17 @@ public class SetupWizardActivity extends Activity implements SetupDataCallbacks 
         return AccountManager.get(this).getAccountsByType(accountType).length > 0;
     }
 
+<<<<<<< HEAD
+=======
+    private void handleWhisperPushRegistration() {
+        Bundle privacyData = getPage(R.string.setup_privacy).getData();
+        if (privacyData.getBoolean("register")) {
+            Log.d(TAG, "Registering with WhisperPush");
+            WhisperPushUtils.startRegistration(this);
+        }
+    }
+
+>>>>>>> cb7bd8f... Implement getPage with page id instead of key.
     private class CMPagerAdapter extends FragmentStatePagerAdapter {
 
         private int mCutOffPage;
