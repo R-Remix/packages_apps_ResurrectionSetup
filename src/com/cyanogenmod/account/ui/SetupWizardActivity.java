@@ -376,17 +376,6 @@ public class SetupWizardActivity extends Activity implements SetupDataCallbacks 
         return AccountManager.get(this).getAccountsByType(accountType).length > 0;
     }
 
-<<<<<<< HEAD
-=======
-    private void handleWhisperPushRegistration() {
-        Bundle privacyData = getPage(R.string.setup_privacy).getData();
-        if (privacyData.getBoolean("register")) {
-            Log.d(TAG, "Registering with WhisperPush");
-            WhisperPushUtils.startRegistration(this);
-        }
-    }
-
->>>>>>> cb7bd8f... Implement getPage with page id instead of key.
     private class CMPagerAdapter extends FragmentStatePagerAdapter {
 
         private int mCutOffPage;
