@@ -50,6 +50,11 @@
     <string name="setup_msg_no_network">WARNING: You won\'t be able to set up your accounts</string>
     <string name="setup_warning_skip_wifi" product="tablet">WARNING: You may incur extra carrier data charges.\n\nTablet setup can require significant network activity.</string>
     <string name="setup_warning_skip_wifi" product="default">WARNING: You may incur extra carrier data charges.\n\nPhone setup can require significant network activity.</string>
+<<<<<<< HEAD
+=======
+    <string name="setup_privacy">Privacy Settings</string>
+    <string name="setup_personalization">Personalize</string>
+>>>>>>> 27a3071... CMAccount: refactor privacy page to personalization
 
     <string name="cmaccount_setup_create_title">Create a account</string>
     <string name="cmaccount_setup_login_title">Log in to your Resurrection account</string>
@@ -90,6 +95,14 @@
     <string name="google_account_summary">Do you want to set up a Google account?</string>
     <string name="btn_google_account">Set up Google account</string>
 
+<<<<<<< HEAD
+=======
+    <string name="whisperpush_title">Enable secure SMS</string>
+    <string name="whisperpush_summary">SMS conversations with others using secure SMS on CyanogenMod will be automatically encrypted.</string>
+    <string name="apply_default_theme_title">Use CyanogenMod’s Look</string>
+    <string name="use_nav_keys">Use on-screen keys</string>
+
+>>>>>>> 27a3071... CMAccount: refactor privacy page to personalization
     <string name="location_access_title">Access to my location</string>
     <string name="location_access_summary">Allow apps that have asked your permission to use your location information</string>
     <string name="location_sources_heading">Location sources</string>
