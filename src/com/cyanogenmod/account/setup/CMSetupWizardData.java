@@ -31,10 +31,7 @@ public class CMSetupWizardData extends AbstractSetupData {
         return new PageList(new WelcomePage(mContext, this, R.string.setup_welcome),
                new GoogleAccountPage(mContext, this, R.string.setup_google_account),
                new LocationSettingsPage(mContext, this, R.string.setup_location),
-<<<<<<< HEAD
-=======
                new PersonalizationPage(mContext, this, R.string.setup_personalization),
->>>>>>> 27a3071... CMAccount: refactor privacy page to personalization
                new DateTimePage(mContext, this, R.string.setup_datetime),
                new FinishPage(mContext, this, R.string.setup_complete)
         );
