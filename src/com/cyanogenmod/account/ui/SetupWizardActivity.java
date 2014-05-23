@@ -16,11 +16,14 @@
 
 package com.cyanogenmod.account.ui;
 
-import android.content.res.ThemeManager;
 import com.cyanogenmod.account.CMAccount;
 import com.cyanogenmod.account.R;
 import com.cyanogenmod.account.gcm.GCMUtil;
-import com.cyanogenmod.account.setup.*;
+import com.cyanogenmod.account.setup.AbstractSetupData;
+import com.cyanogenmod.account.setup.CMSetupWizardData;
+import com.cyanogenmod.account.setup.Page;
+import com.cyanogenmod.account.setup.PageList;
+import com.cyanogenmod.account.setup.SetupDataCallbacks;
 import com.cyanogenmod.account.util.CMAccountUtils;
 
 import android.accounts.AccountManager;
@@ -308,11 +311,6 @@ public class SetupWizardActivity extends Activity implements SetupDataCallbacks 
             removeSetupPage(page, false);
             pagesRemoved = true;
         }
-        page = mPageList.findPage(R.string.setup_personalization);
-        if (page != null && PersonalizationPage.skipPage(this)) {
-            removeSetupPage(page, false);
-            pagesRemoved = true;
-        }
         if (pagesRemoved) {
             onPageTreeChanged();
         }
@@ -363,12 +361,6 @@ public class SetupWizardActivity extends Activity implements SetupDataCallbacks 
     }
 
     private void finishSetup() {
-<<<<<<< HEAD
-=======
-        handleWhisperPushRegistration();
-        handleDefaultThemeSetup();
-
->>>>>>> 27a3071... CMAccount: refactor privacy page to personalization
         Settings.Global.putInt(getContentResolver(), Settings.Global.DEVICE_PROVISIONED, 1);
         Settings.Secure.putInt(getContentResolver(), Settings.Secure.USER_SETUP_COMPLETE, 1);
         ((CMAccount)AppGlobals.getInitialApplication()).enableStatusBar();
@@ -384,34 +376,6 @@ public class SetupWizardActivity extends Activity implements SetupDataCallbacks 
         return AccountManager.get(this).getAccountsByType(accountType).length > 0;
     }
 
-<<<<<<< HEAD
-=======
-    private void handleWhisperPushRegistration() {
-        Page page = getPage(R.string.setup_personalization);
-        if (page == null) {
-            return;
-        }
-        Bundle privacyData = page.getData();
-        if (privacyData != null && privacyData.getBoolean("register")) {
-            Log.d(TAG, "Registering with WhisperPush");
-            WhisperPushUtils.startRegistration(this);
-        }
-    }
-
-    private void handleDefaultThemeSetup() {
-        Page page = getPage(R.string.setup_personalization);
-        if (page == null) {
-            return;
-        }
-        Bundle privacyData = page.getData();
-        if (privacyData != null && privacyData.getBoolean("apply_default_theme")) {
-            Log.d(TAG, "Applying default theme");
-            ThemeManager tm = (ThemeManager) this.getSystemService(Context.THEME_SERVICE);
-            tm.applyDefaultTheme();
-        }
-    }
-
->>>>>>> 27a3071... CMAccount: refactor privacy page to personalization
     private class CMPagerAdapter extends FragmentStatePagerAdapter {
 
         private int mCutOffPage;
