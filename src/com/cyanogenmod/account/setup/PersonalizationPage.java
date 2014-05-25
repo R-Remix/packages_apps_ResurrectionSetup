@@ -115,28 +115,6 @@ public class PersonalizationPage extends Page {
                 }
             });
 
-            Switch useNavBar = (Switch) mRootView.findViewById(R.id.nav_buttons_switch);
-            boolean needsNavBar = true;
-            try {
-                IWindowManager windowManager = WindowManagerGlobal.getWindowManagerService();
-                needsNavBar = windowManager.needsNavigationBar();
-            } catch (RemoteException e) {
-            }
-
-            if (hideKeyDisabler() || needsNavBar) {
-                ViewGroup buttonsLayout = (ViewGroup) mRootView.findViewById(R.id.nav_buttons);
-                if (buttonsLayout != null) {
-                    buttonsLayout.setVisibility(View.GONE);
-                }
-            } else {
-                useNavBar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        writeDisableNavkeysOption(getActivity(), isChecked);
-                    }
-                });
-            }
-
         }
 
         @Override
@@ -148,28 +126,6 @@ public class PersonalizationPage extends Page {
         protected int getTitleResource() {
             return R.string.setup_personalization;
         }
-    }
-
-    private static void writeDisableNavkeysOption(Context context, boolean enabled) {
-        final int defaultBrightness = context.getResources().getInteger(
-                com.android.internal.R.integer.config_buttonBrightnessSettingDefault);
-
-        Settings.System.putInt(context.getContentResolver(),
-                Settings.System.DEV_FORCE_SHOW_NAVBAR, enabled ? 1 : 0);
-        KeyDisabler.setActive(enabled);
-
-        if (enabled) {
-            Settings.System.putInt(context.getContentResolver(),
-                    Settings.System.BUTTON_BRIGHTNESS, 0);
-        } else {
-            Settings.System.putInt(context.getContentResolver(),
-                    Settings.System.BUTTON_BRIGHTNESS,
-                    defaultBrightness);
-        }
-    }
-
-    protected static boolean hideKeyDisabler() {
-        return !KeyDisabler.isSupported();
     }
 
     protected static boolean hideWhisperPush(Context context) {
@@ -184,6 +140,6 @@ public class PersonalizationPage extends Page {
     }
 
     public static boolean skipPage(Context context) {
-        return hideWhisperPush(context) && hideThemeSwitch(context) && hideKeyDisabler();
+        return hideWhisperPush(context) && hideThemeSwitch(context);
     }
 }

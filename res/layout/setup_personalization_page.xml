@@ -94,53 +94,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                        android:id="@+id/nav_buttons"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                    <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:paddingEnd="?android:attr/scrollbarSize"
-                            android:background="?android:attr/selectableItemBackground"
-                            android:clickable="true">
-
-                        <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="6dip"
-                                android:layout_marginTop="6dip"
-                                android:layout_marginBottom="6dip"
-                                android:layout_weight="1">
-
-                            <TextView
-                                    android:id="@+id/nav_buttons_title"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:singleLine="true"
-                                    style="@style/LocationTextTitle"
-                                    android:ellipsize="marquee"
-                                    android:fadingEdge="horizontal"
-                                    android:text="@string/use_nav_keys"/>
-
-                        </RelativeLayout>
-
-                        <Switch
-                                android:id="@+id/nav_buttons_switch"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:gravity="center_vertical"
-                                android:duplicateParentState="true"/>
-
-                    </LinearLayout>
-
-                    <View style="@style/SetupWizardDivider"/>
-                </LinearLayout>
-
-
-                <LinearLayout
                         android:id="@+id/apply_default_theme"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
