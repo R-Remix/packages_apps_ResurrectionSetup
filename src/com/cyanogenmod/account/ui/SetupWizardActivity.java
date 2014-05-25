@@ -16,15 +16,13 @@
 
 package com.cyanogenmod.account.ui;
 
+import android.content.res.ThemeManager;
 import com.cyanogenmod.account.CMAccount;
 import com.cyanogenmod.account.R;
 import com.cyanogenmod.account.gcm.GCMUtil;
-import com.cyanogenmod.account.setup.AbstractSetupData;
-import com.cyanogenmod.account.setup.CMSetupWizardData;
-import com.cyanogenmod.account.setup.Page;
-import com.cyanogenmod.account.setup.PageList;
-import com.cyanogenmod.account.setup.SetupDataCallbacks;
+import com.cyanogenmod.account.setup.*;
 import com.cyanogenmod.account.util.CMAccountUtils;
+import com.cyanogenmod.account.util.WhisperPushUtils;
 
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
@@ -47,6 +45,7 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -311,6 +310,11 @@ public class SetupWizardActivity extends Activity implements SetupDataCallbacks 
             removeSetupPage(page, false);
             pagesRemoved = true;
         }
+        page = mPageList.findPage(R.string.setup_personalization);
+        if (page != null && PersonalizationPage.skipPage(this)) {
+            removeSetupPage(page, false);
+            pagesRemoved = true;
+        }
         if (pagesRemoved) {
             onPageTreeChanged();
         }
@@ -361,6 +365,9 @@ public class SetupWizardActivity extends Activity implements SetupDataCallbacks 
     }
 
     private void finishSetup() {
+        handleWhisperPushRegistration();
+        handleDefaultThemeSetup();
+
         Settings.Global.putInt(getContentResolver(), Settings.Global.DEVICE_PROVISIONED, 1);
         Settings.Secure.putInt(getContentResolver(), Settings.Secure.USER_SETUP_COMPLETE, 1);
         ((CMAccount)AppGlobals.getInitialApplication()).enableStatusBar();
@@ -374,6 +381,31 @@ public class SetupWizardActivity extends Activity implements SetupDataCallbacks 
 
     private boolean accountExists(String accountType) {
         return AccountManager.get(this).getAccountsByType(accountType).length > 0;
+    }
+
+    private void handleWhisperPushRegistration() {
+        Page page = getPage(R.string.setup_personalization);
+        if (page == null) {
+            return;
+        }
+        Bundle privacyData = page.getData();
+        if (privacyData != null && privacyData.getBoolean("register")) {
+            Log.d(TAG, "Registering with WhisperPush");
+            WhisperPushUtils.startRegistration(this);
+        }
+    }
+
+    private void handleDefaultThemeSetup() {
+        Page page = getPage(R.string.setup_personalization);
+        if (page == null) {
+            return;
+        }
+        Bundle privacyData = page.getData();
+        if (privacyData != null && privacyData.getBoolean("apply_default_theme")) {
+            Log.d(TAG, "Applying default theme");
+            ThemeManager tm = (ThemeManager) this.getSystemService(Context.THEME_SERVICE);
+            tm.applyDefaultTheme();
+        }
     }
 
     private class CMPagerAdapter extends FragmentStatePagerAdapter {
