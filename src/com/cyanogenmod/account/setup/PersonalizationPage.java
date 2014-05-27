@@ -67,7 +67,7 @@ public class PersonalizationPage extends Page {
         return R.string.next;
     }
 
-    public class PersonalizationFragment extends SetupPageFragment {
+    public static class PersonalizationFragment extends SetupPageFragment {
 
         ViewSwitcher mSwitcher;
 
@@ -84,11 +84,11 @@ public class PersonalizationPage extends Page {
                 }
             }
             Switch whisperPushSwitch = (Switch) mRootView.findViewById(R.id.whisperpush_switch);
-            mPageState.putBoolean("register", whisperPushSwitch.isChecked());
+            mPage.getData().putBoolean("register", whisperPushSwitch.isChecked());
             whisperPushSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    mPageState.putBoolean("register", b);
+                    mPage.getData().putBoolean("register", b);
                 }
             });
 
@@ -102,11 +102,11 @@ public class PersonalizationPage extends Page {
             } else {
                 defaultThemeSwitch.setChecked(true);
             }
-            mPageState.putBoolean("apply_default_theme", defaultThemeSwitch.isChecked());
+            mPage.getData().putBoolean("apply_default_theme", defaultThemeSwitch.isChecked());
             defaultThemeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    mPageState.putBoolean("apply_default_theme", b);
+                    mPage.getData().putBoolean("apply_default_theme", b);
                     if (!b && mSwitcher.getDisplayedChild() == 0) {
                         mSwitcher.showNext();
                     } else  {
